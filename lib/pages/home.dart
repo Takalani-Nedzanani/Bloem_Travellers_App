@@ -47,165 +47,174 @@ class _HomeState extends State<Home> {
                 itemBuilder: (context, index) {
                   DocumentSnapshot ds = snapshot.data.docs[index];
 
-                  return Container(
-                    margin: EdgeInsets.only(left: 30.0, right: 30.0),
-                    child: Material(
-                      elevation: 3.0,
-                      borderRadius: BorderRadius.circular(20),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 20.0, left: 10.0),
-                              child: Row(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: Image.network(
-                                      ds["ImageUrl"],
-                                      height: 50,
-                                      width: 50,
-                                      fit: BoxFit.cover,
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 25.0),
+                    child: Container(
+                      margin: EdgeInsets.only(left: 25.0, right: 25.0),
+                      child: Material(
+                        elevation: 3.0,
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromARGB(255, 77, 79, 77),
+                                  blurRadius: 12.0,
+                                  spreadRadius: 7.0,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20.0, left: 10.0),
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(30),
+                                      child: Image.network(
+                                        ds["ImageUrl"],
+                                        height: 50,
+                                        width: 50,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(width: 10.0),
-                                  Text(
-                                    ds["UserName"],
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                        color:
-                                            const Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                ],
+                                    SizedBox(width: 10.0),
+                                    Text(
+                                      ds["UserName"],
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0)),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Image.network(ds["ImageUrl"]), //or post image
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.location_on,
-                                    color: Colors.blue,
-                                  ),
-                                  Text(
-                                    // ignore: prefer_interpolation_to_compose_strings
-                                    " " +
-                                        ds["PlaceName"] +
-                                        "," +
-                                        ds["CityName"], // or location
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color:
-                                            const Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                ],
+                              SizedBox(
+                                height: 10.0,
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Text(
-                                ds["Caption"], //or post description
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color.fromARGB(255, 0, 0, 0)),
+                              Image.network(ds["ImageUrl"]), //or post image
+                              SizedBox(
+                                height: 10.0,
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Row(
-                                children: [
-                                  // ds["Like"]
-                                  //     ? Icon(Icons.favorite,
-                                  //         color: Colors.red, size: 30.0)
-                                  // : GestureDetector(
-                                  //     onTap: () {
-                                  //       DatabaseMethods()
-                                  //           .addLike(ds.id, id!);
-                                  //       setState(() {});
-                                  //     },
-                                  //     child: Icon(
-                                  //       Icons.favorite_outline,
-                                  //       color: Colors.black54,
-                                  //       size: 40.0,
-                                  //     ),
-                                  //   ),
-                                  Icon(
-                                    Icons.favorite_outline,
-                                    color: Colors.black54,
-                                    size: 40.0,
-                                  ),
-                                  SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  Text(
-                                    "Like",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                        color:
-                                            const Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                  SizedBox(
-                                    width: 30.0,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => CommentPage(
-                                            userimage: image!,
-                                            username: name!,
-                                            postid: ds.id,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Icon(
-                                      Icons.comment_outlined,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      color: Colors.blue,
+                                    ),
+                                    Text(
+                                      // ignore: prefer_interpolation_to_compose_strings
+                                      " " +
+                                          ds["PlaceName"] +
+                                          "," +
+                                          ds["CityName"], // or location
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Text(
+                                  ds["Caption"], //or post description
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color:
+                                          const Color.fromARGB(255, 0, 0, 0)),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Row(
+                                  children: [
+                                    // ds["Like"]
+                                    //     ? Icon(Icons.favorite,
+                                    //         color: Colors.red, size: 30.0)
+                                    // : GestureDetector(
+                                    //     onTap: () {
+                                    //       DatabaseMethods()
+                                    //           .addLike(ds.id, id!);
+                                    //       setState(() {});
+                                    //     },
+                                    //     child: Icon(
+                                    //       Icons.favorite_outline,
+                                    //       color: Colors.black54,
+                                    //       size: 40.0,
+                                    //     ),
+                                    //   ),
+                                    Icon(
+                                      Icons.favorite_outline,
                                       color: Colors.black54,
-                                      size: 28.0,
+                                      size: 40.0,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  Text(
-                                    "Comment",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                        color:
-                                            const Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                ],
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Text(
+                                      "Like",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0)),
+                                    ),
+                                    SizedBox(
+                                      width: 30.0,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => CommentPage(
+                                              userimage: image!,
+                                              username: name!,
+                                              postid: ds.id,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.comment_outlined,
+                                        color: Colors.black54,
+                                        size: 28.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Text(
+                                      "Comment",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0)),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            // SizedBox(
-                            //   height: 20.0,
-                            // ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -359,9 +368,6 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      // SizedBox(
-                      //   height: 20.0,
-                      // ),
                     ],
                   ),
                   SizedBox(height: 40.0),
