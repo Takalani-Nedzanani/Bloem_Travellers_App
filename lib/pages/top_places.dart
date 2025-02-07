@@ -27,7 +27,7 @@ class _TopPlacesState extends State<TopPlaces> {
                   child: Container(
                     padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Color.fromARGB(255, 86, 197, 186),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: GestureDetector(
@@ -52,7 +52,7 @@ class _TopPlacesState extends State<TopPlaces> {
                 Text(
                   "Top Places",
                   style: TextStyle(
-                      color: Colors.blue,
+                      color: Color.fromARGB(255, 86, 197, 186),
                       fontSize: 28,
                       fontWeight: FontWeight.bold),
                 ),

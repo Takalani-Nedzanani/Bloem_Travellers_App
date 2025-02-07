@@ -58,7 +58,7 @@ class _AddPageState extends State<AddPage> {
                     child: Container(
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: Color.fromARGB(255, 86, 197, 186),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: GestureDetector(
@@ -83,7 +83,7 @@ class _AddPageState extends State<AddPage> {
                   Text(
                     "Add Post",
                     style: TextStyle(
-                        color: Colors.blue,
+                        color: Color.fromARGB(255, 86, 197, 186),
                         fontSize: 28,
                         fontWeight: FontWeight.bold),
                   ),
@@ -301,7 +301,7 @@ class _AddPageState extends State<AddPage> {
                             height: 50,
                             width: MediaQuery.of(context).size.width / 2,
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              color: Color.fromARGB(255, 86, 197, 186),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
