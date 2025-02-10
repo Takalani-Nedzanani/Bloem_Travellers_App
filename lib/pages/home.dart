@@ -186,10 +186,10 @@ class _HomeState extends State<Home> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => CommentPage(
-                                              userimage: image!,
-                                              username: name!,
-                                              postid: ds.id,
-                                            ),
+                                                //userimage: image!,
+                                                //username: name!,
+                                                //postid: ds.id,
+                                                ),
                                           ),
                                         );
                                       },

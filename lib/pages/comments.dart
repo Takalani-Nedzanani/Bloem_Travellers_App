@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CommentPage extends StatefulWidget {
-  String username, userimage, postid;
-  CommentPage(
-      {super.key, required this.username, required this.userimage, required this.postid});
+  // String username, userimage, postid;
+  // CommentPage(
+  //     {super.key,
+  //    required this.username,
+  //     required this.userimage,
+  //   required this.postid});
 
   @override
   State<CommentPage> createState() => _CommentPageState();
@@ -17,7 +20,7 @@ class _CommentPageState extends State<CommentPage> {
   Stream? commentStream;
 
   getontheload() async {
-    commentStream = await DatabaseMethods().getComments(widget.postid);
+    // commentStream = await DatabaseMethods().getComments(widget.postid);
     setState(() {});
   }
 
@@ -69,7 +72,8 @@ class _CommentPageState extends State<CommentPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  ds["Username"],
+                                  // ds["Username"],
+                                  "Takalani Nedzanani",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 18,
@@ -80,7 +84,8 @@ class _CommentPageState extends State<CommentPage> {
                                   width:
                                       MediaQuery.of(context).size.width / 1.5,
                                   child: Text(
-                                    ds["Comment"],
+                                    // ds["Comment"],
+                                    "The Legend",
                                     style: TextStyle(
                                         color:
                                             const Color.fromARGB(230, 0, 0, 0),
@@ -254,12 +259,12 @@ class _CommentPageState extends State<CommentPage> {
                           GestureDetector(
                             onTap: () async {
                               Map<String, dynamic> addComment = {
-                                "Username": widget.userimage,
-                                "Userimage": widget.username,
+                                // "Username": widget.userimage,
+                                // "Userimage": widget.username,
                                 "Comment": commentController.text,
                               };
-                              await DatabaseMethods()
-                                  .addComment(addComment, widget.postid);
+                              // await DatabaseMethods()
+                              // .addComment(addComment, widget.postid);
                               commentController.text = "";
                               setState(() {});
                             },
