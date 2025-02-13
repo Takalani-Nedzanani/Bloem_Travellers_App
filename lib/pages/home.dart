@@ -1,8 +1,11 @@
 import 'package:bloem_travel_app/pages/add_page.dart';
 import 'package:bloem_travel_app/pages/comments.dart';
+import 'package:bloem_travel_app/pages/login.dart';
 import 'package:bloem_travel_app/pages/top_places.dart';
+// import 'package:bloem_travel_app/pages/login_page.dart'; // Ensure you have a login page
 import 'package:bloem_travel_app/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -14,15 +17,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String? name, image, id;
+  Stream? postsStream;
 
   getthesharedpref() async {
-    // name = await SharedpreferenceHelper().getUserDisplayName();
-    //image = await SharedpreferenceHelper().getUserImage();
-    //id = await SharedpreferenceHelper().getUserId();
     setState(() {});
   }
 
-  Stream? postsStream;
   getontheload() async {
     await getthesharedpref();
     postsStream = await DatabaseMethods().getPosts();
@@ -33,6 +33,15 @@ class _HomeState extends State<Home> {
   void initState() {
     getontheload();
     super.initState();
+  }
+
+  // 🔥 Logout function
+  void _logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()), // Redirect to login
+    );
   }
 
   Widget allPosts() {
@@ -50,7 +59,7 @@ class _HomeState extends State<Home> {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 25.0),
                     child: Container(
-                      margin: EdgeInsets.only(left: 25.0, right: 25.0),
+                      margin: EdgeInsets.symmetric(horizontal: 25.0),
                       child: Material(
                         elevation: 3.0,
                         borderRadius: BorderRadius.circular(20),
@@ -88,108 +97,57 @@ class _HomeState extends State<Home> {
                                       ds["UserName"],
                                       style: TextStyle(
                                           fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color.fromARGB(
-                                              255, 0, 0, 0)),
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ],
                                 ),
                               ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              Image.network(ds["ImageUrl"]), //or post image
-                              SizedBox(
-                                height: 10.0,
-                              ),
+                              SizedBox(height: 10.0),
+                              Image.network(ds["ImageUrl"]),
+                              SizedBox(height: 10.0),
                               Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Row(
                                   children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      color: Colors.blue,
-                                    ),
+                                    Icon(Icons.location_on, color: Colors.blue),
                                     Text(
-                                      // ignore: prefer_interpolation_to_compose_strings
-                                      " " +
-                                          ds["PlaceName"] +
-                                          "," +
-                                          ds["CityName"], // or location
+                                      " ${ds["PlaceName"]}, ${ds["CityName"]}",
                                       style: TextStyle(
                                           fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: const Color.fromARGB(
-                                              255, 0, 0, 0)),
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
                               ),
-                              SizedBox(
-                                height: 10,
-                              ),
+                              SizedBox(height: 10),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Text(
-                                  ds["Caption"], //or post description
+                                  ds["Caption"],
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color:
-                                          const Color.fromARGB(255, 0, 0, 0)),
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
-                              SizedBox(
-                                height: 10,
-                              ),
+                              SizedBox(height: 10),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Row(
                                   children: [
-                                    // ds["Like"]
-                                    //     ? Icon(Icons.favorite,
-                                    //         color: Colors.red, size: 30.0)
-                                    // : GestureDetector(
-                                    //     onTap: () {
-                                    //       DatabaseMethods()
-                                    //           .addLike(ds.id, id!);
-                                    //       setState(() {});
-                                    //     },
-                                    //     child: Icon(
-                                    //       Icons.favorite_outline,
-                                    //       color: Colors.black54,
-                                    //       size: 40.0,
-                                    //     ),
-                                    //   ),
-                                    Icon(
-                                      Icons.favorite_outline,
-                                      color: Colors.black54,
-                                      size: 40.0,
-                                    ),
-                                    SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Text(
-                                      "Like",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color.fromARGB(
-                                              255, 0, 0, 0)),
-                                    ),
-                                    SizedBox(
-                                      width: 30.0,
-                                    ),
+                                    Icon(Icons.favorite_outline,
+                                        color: Colors.black54, size: 40.0),
+                                    SizedBox(width: 10.0),
+                                    Text("Like",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500)),
+                                    SizedBox(width: 30.0),
                                     GestureDetector(
                                       onTap: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => CommentPage(
-                                                //userimage: image!,
-                                                //username: name!,
-                                                //postid: ds.id,
-                                                ),
+                                            builder: (context) => CommentPage(),
                                           ),
                                         );
                                       },
@@ -199,17 +157,11 @@ class _HomeState extends State<Home> {
                                         size: 28.0,
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Text(
-                                      "Comment",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color.fromARGB(
-                                              255, 0, 0, 0)),
-                                    ),
+                                    SizedBox(width: 10.0),
+                                    Text("Comment",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500)),
                                   ],
                                 ),
                               ),
@@ -278,32 +230,32 @@ class _HomeState extends State<Home> {
                             ),
                             Spacer(),
                             Material(
-                                elevation: 3.0,
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  padding: EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
+                              elevation: 3.0,
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 30,
+                                    color: Colors.blue,
                                   ),
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => AddPage(),
-                                          ),
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 30,
-                                        color: Colors.blue,
-                                      )),
-                                )),
-                            SizedBox(
-                              width: 10.0,
+                                ),
+                              ),
                             ),
+                            SizedBox(width: 10.0),
                             Material(
                               elevation: 3.0,
                               borderRadius: BorderRadius.circular(60),
@@ -316,7 +268,17 @@ class _HomeState extends State<Home> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                            )
+                            ),
+                            SizedBox(width: 10.0),
+                            Material(
+                              elevation: 3.0,
+                              borderRadius: BorderRadius.circular(10),
+                              child: IconButton(
+                                icon: Icon(Icons.logout),
+                                onPressed: () => _logout(context),
+                                color: Colors.black,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -330,16 +292,14 @@ class _HomeState extends State<Home> {
                               style: TextStyle(
                                   fontSize: 40,
                                   fontWeight: FontWeight.w500,
-                                  color:
-                                      const Color.fromARGB(255, 255, 255, 255)),
+                                  color: Colors.white),
                             ),
                             Text(
                               "Explore the ends of Bloemfontein",
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
-                                  color:
-                                      const Color.fromARGB(255, 255, 255, 255)),
+                                  color: Colors.white),
                             ),
                           ],
                         ),
@@ -375,9 +335,7 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          Expanded(
-            child: allPosts(), // This will make the posts scrollable
-          ),
+          Expanded(child: allPosts()),
         ],
       ),
     );
