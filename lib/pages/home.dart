@@ -35,12 +35,12 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  // 🔥 Logout function
+  
   void _logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginPage()), // Redirect to login
+      MaterialPageRoute(builder: (context) => LoginPage()), 
     );
   }
 
