@@ -4,6 +4,26 @@ A new Flutter project.
 
 ## Getting Started
 
+
+This project is all about posting nice places that you visit and letting users know that they are good for visiting.
+
+users can register in order to login to the app,
+the app consists of these pages:register page,login page, home page,post page,comment page. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
