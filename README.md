@@ -6,6 +6,7 @@ A new Flutter project.
 
 
 This project is all about posting nice places that you visit and letting users know that they are good for visiting.
+the app uses firebase for storage,storing information such as pictures and data from users.
 
 users can register in order to login to the app,
 the app consists of these pages:register page,login page, home page,post page,comment page. 
