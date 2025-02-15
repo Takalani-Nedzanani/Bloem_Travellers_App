@@ -1,9 +1,11 @@
-import 'package:bloem_travel_app/services/database.dart';
+//import 'package:bloem_travel_app/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CommentPage extends StatefulWidget {
+  const CommentPage({super.key});
+
   // String username, userimage, postid;
   // CommentPage(
   //     {super.key,
@@ -258,10 +260,11 @@ class _CommentPageState extends State<CommentPage> {
                           ),
                           GestureDetector(
                             onTap: () async {
+                              // ignore: unused_local_variable
                               Map<String, dynamic> addComment = {
                                 // "Username": widget.userimage,
                                 // "Userimage": widget.username,
-                                "Comment": commentController.text,
+                                // "Comment": commentController.text,
                               };
                               // await DatabaseMethods()
                               // .addComment(addComment, widget.postid);
